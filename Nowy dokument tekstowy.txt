@@ -1,0 +1,452 @@
+.slide {
+    opacity: 0;
+    z-index: 0;
+    position: relative;
+    transition:2s all;
+}
+.slide .title {
+    left: -2rem;
+    opacity: 0;
+}
+
+/* poprzez dodatkow¹ klasê zmieniam w³aœciwoœci elementu i jego dzieci */
+.slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+.slide.active .title {
+    left: 0;
+    opacity: 1;
+}
+
+<div class="elements-list" id="slider1">
+    <article class="element">
+        <h2 class="element-title">
+            1 Lorem ipsum dolor sit.
+        </h2>
+        <div class="element-text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+        </div>
+    </article>
+    <article class="element">
+        <h2 class="element-title">
+            2 Lorem ipsum dolor sit.
+        </h2>
+        <div class="element-text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+        </div>
+    </article>
+</div>
+
+Po zamianie za pomoc¹ JavaScript powy¿szy kod html zamieni siê na poni¿szy kod slidera:
+
+<div class="slider elements-list" id="slider1">
+    <div class="slider-slides-cnt">
+        <article class="element slider-slide">
+            <h2 class="element-title">
+                1 Lorem ipsum dolor sit.
+            </h2>
+            <div class="element-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+            </div>
+        </article>
+        <article class="element slider-slide">
+            <h2 class="element-title">
+                2 Lorem ipsum dolor sit.
+            </h2>
+            <div class="element-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+            </div>
+        </article>
+    </div>
+    <div class="slider-nav">
+        <button type="button" class="slider-button slider-button-prev">Poprzedni</button>
+        <button type="button" class="slider-button slider-button-next">Nastêpny</button>
+    </div>
+    <ul class="slider-dots">
+        <li class="slider-dots-element slider-dots-element-active"><button class="slider-dots-button" type="button">1</button></li>
+        <li class="slider-dots-element"><button class="slider-dots-button" type="button">2</button></li>
+        <li class="slider-dots-element"><button class="slider-dots-button" type="button">3</button></li>
+    </ul>
+</div>
+
+.slider {
+    position: relative;
+    background: url(slide-bg1.jpeg);
+    background-size: cover;
+    background-position: center center;
+}
+
+/* kontener dla wszystkich slajdów */
+.slider-slides-cnt {
+    height:700px;
+    position: relative;
+}
+
+/* pojedynczy slide */
+.slider-slide {
+    position: absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity:0;
+    z-index: 0;
+}
+/* slide aktywny */
+.slider-slide-active {
+    z-index: 1;
+}
+
+/* elementy pojedynczego slajdu */
+.slider .element-title {
+    color:#fff;
+    font-family: sans-serif;
+    position: relative;
+    left:-3rem;
+    opacity:0;
+    font-size:6rem;
+    text-transform: uppercase;
+    font-weight: normal;
+    margin-top:0;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.slider .element-text {
+    color:#fff;
+    position: relative;
+    left:-3rem;
+    opacity:0;
+    font-size:1.5rem;
+    color:rgba(255,255,255,.6);
+    padding-left:4rem;
+    padding-right:4rem;
+    text-align: center;
+    font-family: serif;
+    font-style: italic;
+    max-width:60%;
+}
+
+/* animacja slajdów */
+.slider-slide {
+    opacity: 0;
+    transition:0.4s all;
+}
+.slider .element-title {
+    left:-3rem;
+    opacity:0;
+    transition: 2s left, 2s opacity;
+}
+.slider .element-text {
+    left:-3rem;
+    opacity:0;
+    transition: 2s 1s left, 2s 1s opacity;
+}
+
+/* aktywny slide zmienia w³aœciwoœci elementów */
+.slider-slide-active {
+    opacity: 1;
+}
+.slider-slide-active .element-title {
+    left:0;
+    opacity:1;
+}
+.slider-slide-active .element-text {
+    left:0;
+    opacity:1;
+}
+
+/* przyciski strza³ek slajdu */
+.slider-button-prev,
+.slider-button-next {
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    left:0;
+    top:0;
+    width:4rem;
+    height:100%;
+    background: rgba(0,0,0,0.1);
+    border:0;
+    text-indent:-999px;
+    overflow:hidden;
+}
+.slider-button-next {
+    left:auto;
+    right:0;
+}
+.slider-button-prev:focus,
+.slider-button-next:focus {
+    outline: none;
+}
+.slider-button-prev:before,
+.slider-button-next:before {
+    content:'<';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    font-size:2rem;
+    color:#fff;
+    text-indent: 0;
+}
+.slider-button-next:before {
+    content: '>';
+}
+
+/* slider dots */
+.slider-dots {
+    z-index: 2;
+    position: absolute;
+    left:0;
+    bottom:1rem;
+    margin:0;
+    padding:0;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    list-style:none;
+}
+.slider-dots-element {
+}
+.slider-dots-button {
+    background: transparent;
+    width:2rem;
+    height:2rem;
+    border:0;
+    text-indent:-999px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+.slider-dots-button:before {
+    content:'';
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    background: transparent;
+    width:0.9rem;
+    height:0.9rem;
+    border-radius: 50%;
+    transition:0.5s all;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,0.5);
+}
+.slider-dots-element-active .slider-dots-button:before {
+    background: #fff;
+    transform:translate(-50%, -50%) scale(1.2);
+}
+.slider-dots-button:focus {
+    outline: none;
+}
+
+Za³o¿eniem jest, ¿e slajdów mo¿emy mieæ kilka na stronie, wiêc powinniœmy zrobiæ je pod wspólny wzór - czyli skorzystamy z konstruktora lub klas. Ja w poni¿szym kodzie u¿y³em klasycznego podejœcia, ale nic nie stoi na przeszkodzie by poni¿szy kod przerobiæ na klasy (do czego zreszt¹ bardzo zachêcam).
+
+Pierwsz¹ czynnoœci¹ jest stworzenie odpowiednich zmiennych:
+
+const Slider = function(elemSelector) {
+    this.currentSlide = 0; //aktualny slide
+    this.sliderSelector = elemSelector; //selektor elementu który zamienimy na slider
+    this.elem = null; //tutaj pobierzemy element który zamienimy na slider
+    this.slider = null; //tutaj wygenerujemy slider
+    this.slides = null; //tutaj pobierzemy slajdy
+    this.prev = null; //przycisk prev
+    this.next = null; //przycisk next
+    this.dots = []; //przyciski kropek
+}
+
+...........
+const Slider = function(elemSelector, opts) {
+    const defaultOpts = {
+        pauseTime : 0,
+        prevText : "Poprzedni slide",
+        nextText : "Nastêpny slide",
+        generateDots : true,
+        generatePrevNext : true
+    };
+    this.options = Object.assign({}, defaultOpts, opts);
+    this.sliderSelector = elemSelector;
+    this.currentSlide = 0; //aktualny slide
+    this.time = null; //tutaj bêdziemy podczepiaæ setTimeout
+    this.slider = null;
+    this.elem = null;
+    this.slides = null;
+
+    this.prev = null; //przycisk prev
+    this.next = null; //przycisk next
+    this.dots = [];
+
+    this.generateSlider();
+    this.changeSlide(this.currentSlide);
+}
+
+Slider.prototype.generateSlider = function() {
+    //pobieramy element który zamienimy na slider
+    this.slider = document.querySelector(this.sliderSelector);
+    this.slider.classList.add('slider');
+
+    //tworzymy kontener dla slajdów
+    const slidesCnt = document.createElement('div');
+    slidesCnt.classList.add('slider-slides-cnt');
+
+    //pobieramy element slajdów
+    this.slides = this.slider.children;
+
+    //to jest ¿ywa kolekcja, wiêc przy przeniesieniu ka¿dego slajdu
+    //jej d³ugoœæ maleje
+    while (this.slides.length) {
+        this.slides[0].classList.add('slider-slide');
+        slidesCnt.appendChild(this.slides[0]);
+    }
+    this.slides = slidesCnt.querySelectorAll('.slider-slide');
+    this.slider.appendChild(slidesCnt);
+
+    if (this.options.generatePrevNext) this.createPrevNext();
+    if (this.options.generateDots) this.createDots();
+}
+
+Slider.prototype.slidePrev = function() {
+    this.currentSlide--;
+    if (this.currentSlide < 0) {
+        this.currentSlide = this.slides.length - 1;
+    }
+    this.changeSlide(this.currentSlide);
+}
+
+Slider.prototype.slideNext = function() {
+    this.currentSlide++;
+    if (this.currentSlide > this.slides.length - 1) {
+        this.currentSlide = 0;
+    }
+    this.changeSlide(this.currentSlide);
+}
+
+Slider.prototype.changeSlide = function(index) {
+    [].forEach.call(this.slides, function(slide) {
+        slide.classList.remove('slider-slide-active');
+        slide.setAttribute('aria-hidden', true);
+    });
+
+    //dodajemy j¹ tylko wybranemu
+    this.slides[index].classList.add('slider-slide-active');
+    this.slides[index].setAttribute('aria-hidden', false);
+
+    //podobny manewr robimy dla kropek
+    if (this.options.generateDots) {
+        this.dots.forEach(function(dot) {
+            dot.classList.remove('slider-dots-element-active');
+        });
+        this.dots[index].classList.add('slider-dots-element-active');
+    }
+
+    //aktualny slide przestawiamy na wybrany
+    this.currentSlide = index;
+
+    if (this.options.pauseTime !== 0) {
+        clearInterval(this.time);
+        this.time = setTimeout(function() {
+            this.slideNext();
+        }.bind(this), this.options.pauseTime)
+    }
+}
+
+Slider.prototype.createPrevNext = function() {
+    this.prev = document.createElement('button');
+    this.prev.type = "button";
+    this.prev.innerText = this.options.prevText;
+    this.prev.classList.add('slider-button');
+    this.prev.classList.add('slider-button-prev');
+    this.prev.addEventListener('click', this.slidePrev.bind(this));
+
+    this.next = document.createElement('button');
+    this.next.type = "button";
+    this.next.innerText = this.options.nextText;
+    this.next.classList.add('slider-button');
+    this.next.classList.add('slider-button-next');
+    this.next.addEventListener('click', this.slideNext.bind(this));
+
+    const nav = document.createElement('div');
+    nav.classList.add('slider-nav');
+    nav.setAttribute('aria-label', 'Slider prev next');
+    nav.appendChild(this.prev);
+    nav.appendChild(this.next);
+    this.slider.appendChild(nav);
+}
+
+Slider.prototype.createDots = function() {
+    const ulDots = document.createElement('ul');
+    ulDots.classList.add('slider-dots');
+    ulDots.setAttribute('aria-label', 'Slider pagination');
+
+    //tworzymy pêtlê w iloœci liczby slajdów
+    for (let i=0; i<this.slides.length; i++) {
+        //ka¿dorazowo tworzymy LI wraz z buttonem
+        //ka¿dy button po klikniêciu zmieni slajd
+        //za pomoc¹ metody changeSlide()
+
+        const li = document.createElement('li');
+        li.classList.add('slider-dots-element');
+
+        const btn = document.createElement('button');
+        btn.classList.add('slider-dots-button');
+        btn.type = "button";
+        btn.innerText = i+1;
+        btn.setAttribute('aria-label', 'Set slide '+(i+1));
+
+        btn.addEventListener('click', function() {
+            this.changeSlide(i);
+        }.bind(this));
+
+        li.appendChild(btn);
+
+        ulDots.appendChild(li);
+        this.dots.push(li);
+    }
+
+    this.slider.appendChild(ulDots);
+}
+//wywo³anie bez opcji
+const slide = new Slider('#slider1');
+
+//wywo³anie z opcjami
+const slide = new Slider('#slider1', {
+    pauseTime : 10000,
+    generateDots : true,
+    generatePrevNext : true,
+    prevText : "Poprzedni",
+    nextText : "Nastêpny"
+});
+
+
+//
+
+<script type="text/javascript">
+  ile=8; //ile jest obrazkow
+  //no need to edit below
+  i=0;
+  function galeria(){
+    document.getElementById('obrazek').src=i+'.jpg';
+    if(i<ile-1){
+      i++
+    }else{
+      i=0
+    }
+    setTimeout('galeria()',1000)
+  }
+  window.onload=function(){
+    for(x=0; x<ile; x++){
+      new Image().src=x+'.jpg'
+    }
+    galeria()
+  }
+  </script>
+  
+ <img id="obrazek" src="0.jpg" />

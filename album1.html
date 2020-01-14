@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<html>
+	<head>
+		<meta charset="utf-8">
+	
+	<title>Rataje Wachock</title>
+	<meta name="description" content="Informacje o Rataje,Wąchock">
+	<meta name="keywords" content="Rataje, Wąchock, Wykus">
+	<meta name="author" content="Marlena Bebas-Loba">
+	<meta http-equiv="X-Ua-Compatible" content="IE=edge">
+	
+	<link rel= "stylesheet" href="css-b/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+		
+		<style>
+			body
+			{
+				background-color: #222222;
+				font-size: 20px;
+				color: white;
+				text-align:center;
+				
+			}
+		</style>
+		
+		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		
+		<script type="text/javascript">
+		
+			var numer = Math.floor(Math.random()*5)+1;
+			
+			var timer1 = 0;
+			var timer2 = 0;
+			
+			function ustawslajd(nrslajdu)
+			{
+				clearTimeout(timer1);
+				clearTimeout(timer2);
+				numer = nrslajdu - 1;
+				
+				schowaj();
+				setTimeout("zmienslajd()", 500);
+				
+			}
+			
+			function schowaj()
+			{
+				$("#slider").fadeOut(500);
+			}
+		
+			function zmienslajd()
+			{
+				numer++; if (numer>5) numer=1;
+				
+				var plik = "<img src=\"slajdyx/slajd" + numer + ".jpg\" />";
+				
+				document.getElementById("slider").innerHTML = plik;
+				$("#slider").fadeIn(500);
+				
+				timer1 = setTimeout("zmienslajd()", 5000);
+				timer2 = setTimeout("schowaj()", 4500);
+			
+			}
+			
+		</script>
+		
+	</head>
+	<body onload="zmienslajd()">
+	
+		<span onclick="ustawslajd(1)" style="cursor:pointer;">[ 1 ]</span>
+		<span onclick="ustawslajd(2)" style="cursor:pointer;">[ 2 ]</span>
+		<span onclick="ustawslajd(3)" style="cursor:pointer;">[ 3 ]</span>
+		<span onclick="ustawslajd(4)" style="cursor:pointer;">[ 4 ]</span>
+		<span onclick="ustawslajd(5)" style="cursor:pointer;">[ 5 ]</span>
+		
+		<div id="slider"></div>
+		
+	</body>
+</html>
